@@ -9,8 +9,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Math Engine
 
-- [ ] **MATH-01**: Implement arbitrary-precision math calculation engine in Python
-- [ ] **MATH-02**: Develop sequence generator for Fibonacci series calculation
+- [x] **MATH-01**: Implement arbitrary-precision math calculation engine in Python
+- [x] **MATH-02**: Develop sequence generator for Fibonacci series calculation
 - [ ] **MATH-03**: Develop large prime number calculation algorithms
 - [ ] **MATH-04**: Develop abstract geometric plotting and fractal calculations (concept of infinity)
 - [ ] **MATH-05**: Create a standardized stringified/JSON structured export format mapping equations to exact frame vector data
@@ -51,8 +51,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MATH-01 | Phase 1 | Pending |
-| MATH-02 | Phase 1 | Pending |
+| MATH-01 | Phase 1 | Complete |
+| MATH-02 | Phase 1 | Complete |
 | MATH-03 | Phase 1 | Pending |
 | MATH-04 | Phase 1 | Pending |
 | MATH-05 | Phase 1 | Pending |
