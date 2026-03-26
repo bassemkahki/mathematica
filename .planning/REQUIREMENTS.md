@@ -17,7 +17,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Render Pipeline
 
-- [ ] **RNDR-01**: Ingest Python-generated JSON frame calculations into a 3D/geometric renderer (e.g. headless WebGL or Blender)
+- [x] **RNDR-01**: Ingest Python-generated JSON frame calculations into a 3D/geometric renderer (e.g. headless WebGL or Blender)
 - [ ] **RNDR-02**: Apply abstract geometry and fractal shaders/materials to mathematical dataset
 - [ ] **RNDR-03**: Export rendered frames dynamically as high-bit-depth image sequences
 - [ ] **RNDR-04**: Compile image sequences into a 4K resolution MP4 format via FFmpeg
@@ -56,7 +56,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MATH-03 | Phase 1 | Pending |
 | MATH-04 | Phase 1 | Pending |
 | MATH-05 | Phase 1 | Pending |
-| RNDR-01 | Phase 2 | Pending |
+| RNDR-01 | Phase 2 | Complete |
 | RNDR-02 | Phase 2 | Pending |
 | RNDR-03 | Phase 2 | Pending |
 | RNDR-04 | Phase 2 | Pending |
