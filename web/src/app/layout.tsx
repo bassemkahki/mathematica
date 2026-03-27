@@ -21,17 +21,17 @@ export default function RootLayout({
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: \`
+            __html: `
               window.MathJax = {
                 tex: {
-                  inlineMath: [['\\\\\\\\(', '\\\\\\\\)']],
-                  displayMath: [['\\\\\\\\[', '\\\\\\\\\\]']]
+                  inlineMath: [['\\\\(', '\\\\)']],
+                  displayMath: [['\\\\[', '\\\\]']]
                 },
                 options: {
                   skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
                 }
               };
-            \`,
+            `,
           }}
         />
         <script
