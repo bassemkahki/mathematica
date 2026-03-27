@@ -1,0 +1,34 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "prebuild": "npm run copy:assets && npm run build:papers",
+    "copy:assets": "cp -f ../renders/output/*.mp4 public/videos/ 2>/dev/null || true; cp -f ../renders/test_frames/*.png public/posters/ 2>/dev/null || true",
+    "build:papers": "mkdir -p public/papers && for f in ../papers/*.tex; do [ -f \"$f\" ] && pandoc --from latex --to html5 --mathjax \"$f\" -o \"public/papers/$(basename $f .tex).html\"; done",
+    "test": "npx playwright test",
+    "test:smoke": "npx playwright test --grep smoke"
+  },
+  "dependencies": {
+    "next": "16.2.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.1",
+    "serve": "^14.2.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
