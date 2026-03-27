@@ -116,7 +116,7 @@ Accent reserved for: play button SVG icon, artwork title text, the poster-to-vid
 
 ### Error State
 - If video fails to load: poster image remains visible
-- Below video: "Video unavailable — file may still be rendering." in 14px / #888 italic
+- Below video: "Video unavailable — file may still be rendering." in 16px / #888 italic
 - No retry mechanism in v1
 
 ---
@@ -143,7 +143,7 @@ Accent reserved for: play button SVG icon, artwork title text, the poster-to-vid
 | Site tagline (display level) | "Mathematical truth made visible." |
 | Artwork section heading | "{Artwork name}" — populated from data |
 | Video unavailable error | "Video unavailable — file may still be rendering." |
-| Video loading label | "Loading..." (shown during `waiting` event, 14px / #888) |
+| Video loading label | "Loading..." (shown during `waiting` event, 16px / #888 italic) |
 | Empty gallery state heading | "No artworks yet." |
 | Empty gallery state body | "Rendered artworks will appear here once the pipeline has completed." |
 | Destructive confirmation | not applicable — no destructive actions in this phase |
