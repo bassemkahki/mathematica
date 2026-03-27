@@ -103,6 +103,9 @@ def main():
         except KeyError:
             pass
 
+    # Connect BSDF -> Material Output (Surface input)
+    links.new(node_bsdf.outputs["BSDF"], node_output.inputs["Surface"])
+
     # MESH GENERATION
     min_x, max_x = float('inf'), float('-inf')
     min_y, max_y = float('inf'), float('-inf')
@@ -135,23 +138,49 @@ def main():
     centroid_y = (min_y + max_y) / 2
     centroid_z = (min_z + max_z) / 2
 
-    bpy.ops.object.light_add(type='SUN', location=(centroid_x + 5, centroid_y - 5, centroid_z + 5))
+    # Key light — sun aimed at scene
+    bpy.ops.object.light_add(type='SUN', location=(centroid_x + 5, centroid_y - 5, centroid_z + 10))
     sun = bpy.context.active_object
     try:
-        sun.data.energy = 5.0
+        sun.data.energy = 3.0
     except AttributeError:
-        pass  # Handle property name differences
+        pass
+
+    # Fill light — softer from opposite side to reduce hard black shadows
+    bpy.ops.object.light_add(type='SUN', location=(centroid_x - 5, centroid_y + 5, centroid_z + 5))
+    fill = bpy.context.active_object
+    try:
+        fill.data.energy = 1.5
+    except AttributeError:
+        pass
+
+    # World ambient lighting — eliminates pure-black shadow regions
+    world = bpy.context.scene.world
+    if world is None:
+        world = bpy.data.worlds.new("World")
+        bpy.context.scene.world = world
+    world.use_nodes = True
+    bg_node = world.node_tree.nodes.get("Background")
+    if bg_node is None:
+        bg_node = world.node_tree.nodes.new(type="ShaderNodeBackground")
+    bg_node.inputs["Color"].default_value = (0.05, 0.05, 0.08, 1.0)
+    bg_node.inputs["Strength"].default_value = 0.8
 
     # CAMERA SETUP
-    max_dim = max(max_x - min_x, max_y - min_y, max_z - min_z)
-    distance = max_dim * 2 if max_dim > 0 else 10
+    # Use the lateral spread (x and z axes) to determine framing distance.
+    # The y-axis is often depth in Ulam cylinder data and should not drive distance.
+    lateral_dim = max(max_x - min_x, max_z - min_z)
+    distance = lateral_dim * 2.5 if lateral_dim > 0 else 10
 
-    bpy.ops.object.camera_add(location=(centroid_x, centroid_y - distance, centroid_z + (distance * 0.5)))
+    # Place camera at a fixed elevation looking toward the centroid
+    bpy.ops.object.camera_add(location=(centroid_x, centroid_y - distance, centroid_z + distance * 0.4))
     cam = bpy.context.active_object
     bpy.context.scene.camera = cam
 
-    # Point camera at centroid
-    # Create empty at centroid and add Track To constraint
+    # Extend clip distance to cover large scenes
+    cam.data.clip_end = max(distance * 10, 1000)
+
+    # Point camera at centroid using Track To constraint
     bpy.ops.object.empty_add(location=(centroid_x, centroid_y, centroid_z))
     target = bpy.context.active_object
 
@@ -191,16 +220,25 @@ def main():
 
     # ──────────────────────────────────────────────────────────────
     # CAMERA TURNTABLE ANIMATION
+    # Orbit the camera's LOCATION around the centroid on a horizontal
+    # circle. The TRACK_TO constraint keeps the camera aimed at the
+    # centroid at every frame, producing a smooth turntable render.
+    # (Rotating the target empty's euler angles does NOT move the camera.)
     # ──────────────────────────────────────────────────────────────
     scene.frame_start = 1
     scene.frame_end = frame_count
-    target.rotation_euler = (0, 0, 0)
-    target.keyframe_insert(data_path="rotation_euler", frame=1)
-    target.rotation_euler = (0, 0, math.radians(360))
-    target.keyframe_insert(data_path="rotation_euler", frame=frame_count)
-    # Set linear interpolation for smooth constant-speed rotation
-    if target.animation_data and target.animation_data.action:
-        action = target.animation_data.action
+    cam_elevation = distance * 0.4
+
+    for frame in range(1, frame_count + 1):
+        angle = math.radians(360.0 * (frame - 1) / frame_count)
+        cam.location.x = centroid_x + distance * math.sin(angle)
+        cam.location.y = centroid_y - distance * math.cos(angle)
+        cam.location.z = centroid_z + cam_elevation
+        cam.keyframe_insert(data_path="location", frame=frame)
+
+    # Set linear interpolation so the orbit speed is constant
+    if cam.animation_data and cam.animation_data.action:
+        action = cam.animation_data.action
         fcurves = []
         if hasattr(action, 'fcurves'):
             fcurves = action.fcurves

@@ -14,4 +14,18 @@ export const artworks: Artwork[] = [
     posterSrc: '/posters/fibonacci.png',
     paperSlug: 'fibonacci',
   },
+  {
+    slug: 'primes',
+    title: 'Prime Ulam Cylinder',
+    videoSrc: '/videos/primes.mp4',
+    posterSrc: '/posters/primes.png',
+    paperSlug: 'primes',
+  },
+  {
+    slug: 'fractal',
+    title: 'L-System Fractal',
+    videoSrc: '/videos/fractal.mp4',
+    posterSrc: '/posters/fractal.png',
+    paperSlug: 'fractal',
+  },
 ]
