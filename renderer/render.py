@@ -200,7 +200,17 @@ def main():
     target.keyframe_insert(data_path="rotation_euler", frame=frame_count)
     # Set linear interpolation for smooth constant-speed rotation
     if target.animation_data and target.animation_data.action:
-        for fcurve in target.animation_data.action.fcurves:
+        action = target.animation_data.action
+        fcurves = []
+        if hasattr(action, 'fcurves'):
+            fcurves = action.fcurves
+        elif hasattr(action, 'layers'):
+            for layer in action.layers:
+                for strip in layer.strips:
+                    if hasattr(strip, 'channelbags'):
+                        for cb in strip.channelbags:
+                            fcurves.extend(cb.fcurves)
+        for fcurve in fcurves:
             for kf in fcurve.keyframe_points:
                 kf.interpolation = 'LINEAR'
 
