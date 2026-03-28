@@ -1,41 +1,35 @@
 # Roadmap: Mathematica Art
 
-**Focus:** Foundation & v1 Gallery Launch
-**Start Date:** 2026-03-26
-**Target:** 6 phases
+## Milestones
 
-## Active Milestone
+- ✅ **v1.0 MVP** — Phases 1-6 (shipped 2026-03-28)
 
-### Phase 1: Math Engine Foundation (Python Core)
-- **Goal:** Build the strict mathematical computation engine in Python.
-- **Requirements:** MATH-01, MATH-02
-- **Success:** Can generate an arbitrary-precision sequence of Fibonacci numbers to a JSON/Vector format.
+## Phases
 
-### Phase 2: Advanced Geometrization & Infinity Computation
-- **Goal:** Expand the engine to compute spatial vector layouts and point clouds for abstract concepts (Primes, Infinity).
-- **Requirements:** MATH-03, MATH-04, MATH-05
-- **Success:** JSON/Vector files exist containing 3D coordinates representing prime distribution and fractal bounds.
+<details>
+<summary>✅ v1.0 MVP (Phases 1-6) — SHIPPED 2026-03-28</summary>
 
-### Phase 3: Render Pipeline Initialization
-- **Goal:** Set up headless WebGL or Blender ingestion to reliably read the static mathematical JSON data.
-- **Requirements:** RNDR-01
-- **Success:** The renderer successfully spawns default geometric objects exactly at the 3D coordinates provided by the math engine.
+- [x] Phase 1: Math Engine Foundation (1/1 plans) — completed 2026-03-26
+- [x] Phase 2: Advanced Geometrization & Infinity (2/2 plans) — completed 2026-03-26
+- [x] Phase 3: Render Pipeline Initialization (1/1 plan) — completed 2026-03-26
+- [x] Phase 4: Aesthetic Surfacing & Materials (1/1 plan) — completed 2026-03-26
+- [x] Phase 5: 4K Export Automation (2/2 plans) — completed 2026-03-26
+- [x] Phase 6: Web Gallery & White Paper Integration (4/4 plans) — completed 2026-03-27
 
-### Phase 4: Aesthetic Surfacing & Materials
-- **Goal:** Implement the expressive digital art shaders, textures, and materials bounding the underlying mathematical forms.
-- **Requirements:** RNDR-02
-- **Success:** High-fidelity offline test renders demonstrating visually stunning art mapped to the correct math nodes.
+</details>
 
-### Phase 5: 4K Export Automation
-- **Goal:** Complete the physical rendering loop by exporting image sequences and stitching them into broadcast-quality video.
-- **Requirements:** RNDR-03, RNDR-04
-- **Success:** A flawless 4K MP4 file is reliably generated from a single automated execution line.
+## Progress
 
-### Phase 6: Web Gallery & White Paper Integration
-- **Goal:** Build the presentation frontend storing and embedding the heavy 4K videos alongside methodology formatting.
-- **Requirements:** WEB-01, WEB-02, WEB-03, WEB-04
-- **Success:** Fully functional Next.js/React website allowing smooth, optimized playback of 4K math art next to academic text without client-side lag.
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Math Engine Foundation | v1.0 | 1/1 | Complete | 2026-03-26 |
+| 2. Advanced Geometrization | v1.0 | 2/2 | Complete | 2026-03-26 |
+| 3. Render Pipeline Init | v1.0 | 1/1 | Complete | 2026-03-26 |
+| 4. Aesthetic Surfacing | v1.0 | 1/1 | Complete | 2026-03-26 |
+| 5. 4K Export Automation | v1.0 | 2/2 | Complete | 2026-03-26 |
+| 6. Web Gallery & Papers | v1.0 | 4/4 | Complete | 2026-03-27 |
 
 ## Future Milestones
+
 - Interactive elements (previewing light WebGL models before downloading video)
 - Real user dataset/equation curation tools
