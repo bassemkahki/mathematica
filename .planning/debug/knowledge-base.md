@@ -12,3 +12,11 @@ Resolved debug sessions. Used by `gsd-debugger` to surface known-pattern hypothe
 - **Files changed:** renderer/render.py, scripts/export_data.py, web/src/data/artworks.ts, web/public/posters/fibonacci.png, web/public/posters/primes.png, web/public/posters/fractal.png
 ---
 
+## webpage-renders-4k-video-broken — Blender 5.1 compositor API breaks, camera framing too distant for elongated data, frontend lacks academic styling
+- **Date:** 2026-03-28
+- **Error patterns:** render, blender, compositor, dark, near-black, barely visible, dots, camera distance, 4K, poster, video, identical, placeholder, CompositorNodeComposite, Glare, FOG_GLOW, EEVEE, emission, academic, styling, serif
+- **Root cause:** Three compounding issues: (1) Blender 5.1 removed CompositorNodeComposite and changed Glare node type from enum 'FOG_GLOW' to string 'Fog Glow' — silent exceptions meant no bloom/glare processing; (2) Camera distance used max of two largest dims directly, placing camera too far for elongated datasets (e.g. primes Y=199 vs X=20); (3) Frontend used generic dark UI instead of academic/scholarly styling.
+- **Fix:** (1) Updated compositor to use NodeGroupOutput and 'Fog Glow' string for Blender 5.1 API; added EEVEE for poster-only mode; reduced Cycles samples to 64. (2) Camera distance now uses geometric mean of two largest dims. (3) Added EB Garamond serif typography, refined dark academic theme across all components.
+- **Files changed:** renderer/render.py, web/src/app/globals.css, web/src/app/layout.tsx, web/src/app/page.tsx, web/src/components/SiteHeader.tsx, web/src/components/ArtworkSection.tsx, web/src/components/VideoPlayer.tsx, web/src/components/DownloadButton.tsx, web/src/components/PaperColumn.tsx
+---
+
