@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\title{Fibonacci Spiral: Mathematical Foundation}
+\author{Mathematica}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+The Fibonacci sequence \( F_n = F_{n-1} + F_{n-2} \) with \( F_0 = 0, F_1 = 1 \)
+defines a spiral that converges to the golden ratio \( \phi = \frac{1 + \sqrt{5}}{2} \approx 1.618 \).
+
+\section{Geometric Interpretation}
+
+Each quarter-circle arc in the spiral has radius \( F_n \), producing the recurrence:
+\[
+  r_n = r_{n-1} + r_{n-2}
+\]
+
+The cumulative arc length approaches \( \phi \cdot r_n \) as \( n \to \infty \).
+
+\section{Visualization Method}
+
+The rendered animation plots 3D coordinates \( (x_n, y_n, z_n) \) derived from the
+polar form \( r = e^{b\theta} \) where \( b = \frac{\ln \phi}{\pi/2} \).
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\title{L-System Fractal: Mathematical Foundation}
+\author{Mathematica}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+L-systems (Lindenmayer systems), introduced by Aristid Lindenmayer in
+1968, are parallel rewriting grammars that model the self-similar growth
+of biological structures. Iterating simple production rules generates
+fractal geometry of arbitrary complexity.
+
+\section{Formal Definition}
+
+An L-system is a tuple $(\Sigma, \omega, P)$ where $\Sigma$ is the
+alphabet, $\omega$ is the axiom, and $P$ is the production rule set.
+After $n$ iterations, the string length grows as:
+\[
+  |S_n| = |S_{n-1}| \cdot \rho
+\]
+where $\rho$ is the branching factor. For the visualized system
+$\rho = 2$, yielding $O(2^n)$ segments at iteration $n$.
+
+\section{Hausdorff Dimension}
+
+The fractal dimension $d_H$ of an L-system fractal relates its
+self-similarity ratio $r$ to its copy count $N$:
+\[
+  d_H = \frac{\ln N}{\ln(1/r)}
+\]
+For the rendered 3D branching structure, $d_H \approx 1.585$, placing
+it between a line and a plane --- a fractional dimension that captures
+its intermediate complexity.
+
+\section{Visualization Method}
+
+Three iterations of the L-system axiom are evaluated into 3D
+turtle-graphics coordinates. Each segment endpoint becomes a vertex in
+the point cloud. The turntable camera animation reveals the branching
+structure from all angles at 4K resolution.
+
+\end{document}
