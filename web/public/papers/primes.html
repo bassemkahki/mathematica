@@ -1,0 +1,30 @@
+<h1 id="introduction">Introduction</h1>
+<p>The Ulam spiral, invented by Stanislaw Ulam in 1963, reveals an
+unexpected visual structure in the distribution of prime numbers. When
+integers are arranged in a spiral and primes are marked, diagonal lines
+emerge — a pattern unexplained by classical number theory.</p>
+<h1 id="the-ulam-cylinder">The Ulam Cylinder</h1>
+<p>The Ulam cylinder extends this spiral into three dimensions. Each
+integer <span class="math inline">\(n\)</span> is mapped to coordinates
+<span class="math inline">\((x, y, z)\)</span> along a helical path of
+circumference <span class="math inline">\(C\)</span>: <span
+class="math display">\[z = \left\lfloor \frac{n}{C} \right\rfloor, \quad
+  \theta = \frac{2\pi n}{C}, \quad
+  x = r\cos\theta, \quad y = r\sin\theta\]</span> Prime integers produce
+a sparse but structured point cloud. Vertical alignments in the cylinder
+correspond to the diagonal alignments in the 2D Ulam spiral.</p>
+<h1 id="prime-number-theorem">Prime Number Theorem</h1>
+<p>The density of primes near <span class="math inline">\(n\)</span>
+approximates <span class="math inline">\(\frac{1}{\ln n}\)</span> by the
+Prime Number Theorem: <span class="math display">\[\pi(n) \sim
+\frac{n}{\ln n}\]</span> where <span
+class="math inline">\(\pi(n)\)</span> counts the number of primes up to
+<span class="math inline">\(n\)</span>. The 3D visualization makes this
+thinning density perceptible as vertical sparsity in the upper
+cylinder.</p>
+<h1 id="visualization-method">Visualization Method</h1>
+<p>The animation renders 100 primes mapped to the cylinder surface. Each
+prime <span class="math inline">\(p_i\)</span> is assigned a color
+interpolated by index, and the camera orbits the structure in a full
+<span class="math inline">\(360^\circ\)</span> turntable over 300 frames
+at 4K resolution.</p>

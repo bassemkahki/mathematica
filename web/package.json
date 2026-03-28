@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "prebuild": "npm run copy:assets && npm run build:papers",
-    "copy:assets": "cp -f ../renders/output/*.mp4 public/videos/ 2>/dev/null || true; cp -f ../renders/test_frames/*.png public/posters/ 2>/dev/null || true",
+    "copy:assets": "for slug in fibonacci primes fractal; do [ -f \"../renders/output/${slug}.mp4\" ] && cp -f \"../renders/output/${slug}.mp4\" \"public/videos/${slug}.mp4\"; done; for slug in fibonacci primes fractal; do [ -f \"../renders/output/${slug}-poster.png\" ] && cp -f \"../renders/output/${slug}-poster.png\" \"public/posters/${slug}.png\"; done; true",
     "build:papers": "mkdir -p public/papers && for f in ../papers/*.tex; do [ -f \"$f\" ] && pandoc --from latex --to html5 --mathjax \"$f\" -o \"public/papers/$(basename $f .tex).html\"; done",
     "test": "npx playwright test",
     "test:smoke": "npx playwright test --grep smoke"

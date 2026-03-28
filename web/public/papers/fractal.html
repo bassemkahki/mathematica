@@ -1,0 +1,31 @@
+<h1 id="introduction">Introduction</h1>
+<p>L-systems (Lindenmayer systems), introduced by Aristid Lindenmayer in
+1968, are parallel rewriting grammars that model the self-similar growth
+of biological structures. Iterating simple production rules generates
+fractal geometry of arbitrary complexity.</p>
+<h1 id="formal-definition">Formal Definition</h1>
+<p>An L-system is a tuple <span class="math inline">\((\Sigma, \omega,
+P)\)</span> where <span class="math inline">\(\Sigma\)</span> is the
+alphabet, <span class="math inline">\(\omega\)</span> is the axiom, and
+<span class="math inline">\(P\)</span> is the production rule set. After
+<span class="math inline">\(n\)</span> iterations, the string length
+grows as: <span class="math display">\[|S_n| = |S_{n-1}| \cdot
+\rho\]</span> where <span class="math inline">\(\rho\)</span> is the
+branching factor. For the visualized system <span
+class="math inline">\(\rho = 2\)</span>, yielding <span
+class="math inline">\(O(2^n)\)</span> segments at iteration <span
+class="math inline">\(n\)</span>.</p>
+<h1 id="hausdorff-dimension">Hausdorff Dimension</h1>
+<p>The fractal dimension <span class="math inline">\(d_H\)</span> of an
+L-system fractal relates its self-similarity ratio <span
+class="math inline">\(r\)</span> to its copy count <span
+class="math inline">\(N\)</span>: <span class="math display">\[d_H =
+\frac{\ln N}{\ln(1/r)}\]</span> For the rendered 3D branching structure,
+<span class="math inline">\(d_H \approx 1.585\)</span>, placing it
+between a line and a plane — a fractional dimension that captures its
+intermediate complexity.</p>
+<h1 id="visualization-method">Visualization Method</h1>
+<p>Three iterations of the L-system axiom are evaluated into 3D
+turtle-graphics coordinates. Each segment endpoint becomes a vertex in
+the point cloud. The turntable camera animation reveals the branching
+structure from all angles at 4K resolution.</p>
