@@ -29,7 +29,12 @@ export function VideoPlayer({ src, poster, title }: VideoPlayerProps) {
   return (
     <div
       className="relative w-full"
-      style={{ aspectRatio: '16/9' }}
+      style={{
+        aspectRatio: '16/9',
+        borderRadius: '2px',
+        overflow: 'hidden',
+        border: '1px solid #1A1A1A',
+      }}
       data-testid="video-column"
     >
       <video
@@ -43,38 +48,42 @@ export function VideoPlayer({ src, poster, title }: VideoPlayerProps) {
         onWaiting={() => setLoading(true)}
         onPlaying={() => setLoading(false)}
         className="w-full h-full object-cover"
+        style={{ background: '#080808' }}
       />
 
-      {/* Play overlay — visible by default, fades out when playing */}
+      {/* Play overlay */}
       {!playing && !error && (
         <button
           onClick={handlePlay}
           aria-label="Play artwork"
-          className="absolute inset-0 flex items-center justify-center transition-opacity duration-200"
-          style={{ opacity: loading ? 0.5 : 0.7 }}
-          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '1' }}
-          onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.7' }}
+          className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
+          style={{ opacity: loading ? 0.5 : 0.6 }}
+          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.9' }}
+          onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.6' }}
         >
           {loading ? (
-            <p className="italic" style={{ color: '#888', fontSize: '16px' }}>Loading...</p>
+            <p style={{ color: '#777', fontSize: '14px', fontFamily: 'Inter, sans-serif', fontStyle: 'italic' }}>
+              Loading...
+            </p>
           ) : (
             <span
               className="flex items-center justify-center rounded-full"
               style={{
-                width: '44px',
-                height: '44px',
-                background: 'rgba(255,255,255,0.15)',
+                width: '48px',
+                height: '48px',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                backdropFilter: 'blur(4px)',
               }}
             >
-              {/* SVG play triangle — white, 20px */}
               <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
                 fill="none"
                 aria-hidden="true"
               >
-                <polygon points="5,3 17,10 5,17" fill="#E8E8E8" />
+                <polygon points="5,2 16,9 5,16" fill="#D0D0D0" />
               </svg>
             </span>
           )}
@@ -84,8 +93,8 @@ export function VideoPlayer({ src, poster, title }: VideoPlayerProps) {
       {/* Error state */}
       {error && (
         <div className="absolute inset-0 flex items-end justify-start p-4">
-          <p className="italic" style={{ color: '#888', fontSize: '16px' }}>
-            Video unavailable — file may still be rendering.
+          <p style={{ color: '#555', fontSize: '14px', fontFamily: 'Inter, sans-serif', fontStyle: 'italic' }}>
+            Video unavailable
           </p>
         </div>
       )}

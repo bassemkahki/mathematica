@@ -218,10 +218,12 @@ def setup_camera(bounds, frame_count):
     """Set up camera with turntable animation framing the data nicely."""
     cx, cy, cz = bounds["cx"], bounds["cy"], bounds["cz"]
 
-    # Use the two largest dimensions for framing distance
+    # Use the geometric mean of the two largest dimensions for balanced framing.
+    # This prevents one very long axis (e.g. primes Y=199) from pushing the
+    # camera absurdly far when the other axes are small.
     dims = sorted([bounds["span_x"], bounds["span_y"], bounds["span_z"]], reverse=True)
-    lateral_dim = max(dims[0], dims[1], 1.0)
-    distance = lateral_dim * 1.8  # closer than before for more dramatic framing
+    lateral_dim = math.sqrt(max(dims[0], 1.0) * max(dims[1], 1.0))
+    distance = lateral_dim * 2.0
 
     # Camera placement
     bpy.ops.object.camera_add(location=(cx, cy - distance, cz + distance * 0.35))
@@ -328,7 +330,11 @@ def create_connection_curves(points, bounds, radius):
 
 
 def setup_render_settings(output_dir, output_format, frame_count, poster_only):
-    """Configure 4K render settings with Cycles."""
+    """Configure 4K render settings.
+
+    Uses EEVEE for poster-only (fast, great emission support).
+    Uses Cycles for full animation (higher quality, GPU-accelerated).
+    """
     scene = bpy.context.scene
 
     # Resolution
@@ -350,25 +356,28 @@ def setup_render_settings(output_dir, output_format, frame_count, poster_only):
         scene.render.image_settings.color_mode = 'RGBA'
         scene.render.image_settings.compression = 15
 
-    # Cycles engine
-    scene.render.engine = 'CYCLES'
-    scene.cycles.device = 'GPU'
-    scene.cycles.samples = 128
-    scene.cycles.use_denoising = True
-    scene.cycles.denoiser = 'OPENIMAGEDENOISE'
+    # Engine selection: EEVEE is much faster and handles emission well
+    # Blender 5.x uses 'BLENDER_EEVEE' (not 'BLENDER_EEVEE_NEXT')
+    if poster_only:
+        scene.render.engine = 'BLENDER_EEVEE'
+    else:
+        scene.render.engine = 'CYCLES'
+        scene.cycles.device = 'GPU'
+        scene.cycles.samples = 64  # reduced from 128 for speed
+        scene.cycles.use_denoising = True
+        scene.cycles.denoiser = 'OPENIMAGEDENOISE'
 
     # Film: transparent background OFF (we want the dark cosmic background)
     scene.render.film_transparent = False
 
-    # Bloom/glare in compositor for glow effect
-    # Blender 5.x uses compositing_node_group instead of scene.node_tree
+    # Compositor: Bloom/glare for glow effect
+    # Blender 5.x uses compositing_node_group (scene.node_tree removed)
     scene.use_nodes = True
     tree = getattr(scene, 'compositing_node_group', None)
     if tree is None:
         tree = bpy.data.node_groups.new('Compositor', 'CompositorNodeTree')
         scene.compositing_node_group = tree
     else:
-        # Clear existing nodes
         for node in list(tree.nodes):
             tree.nodes.remove(node)
 
@@ -378,30 +387,24 @@ def setup_render_settings(output_dir, output_format, frame_count, poster_only):
 
     glare = tree.nodes.new(type='CompositorNodeGlare')
     glare.location = (300, 0)
-    # Blender 5.x: glare settings are socket inputs, not properties
+    # Blender 5.1: Glare Type is a MENU socket taking string enum values
     try:
-        glare.inputs['Type'].default_value = 3  # FOG_GLOW
+        glare.inputs['Type'].default_value = 'Fog Glow'
     except (KeyError, TypeError):
-        try:
-            glare.glare_type = 'FOG_GLOW'
-        except AttributeError:
-            pass
+        pass
     try:
-        glare.inputs['Threshold'].default_value = 0.5
+        glare.inputs['Threshold'].default_value = 0.3
         glare.inputs['Size'].default_value = 7.0
+        glare.inputs['Strength'].default_value = 0.8
     except (KeyError, TypeError):
         pass
 
-    # Use NodeGroupOutput for Blender 5.x (CompositorNodeComposite was removed)
+    # Blender 5.1: CompositorNodeComposite removed, use NodeGroupOutput
+    output_node = tree.nodes.new(type='NodeGroupOutput')
     try:
-        output_node = tree.nodes.new(type='CompositorNodeComposite')
-    except RuntimeError:
-        output_node = tree.nodes.new(type='NodeGroupOutput')
-        # Create output socket on the node group interface
-        try:
-            tree.interface.new_socket('Image', in_out='OUTPUT', socket_type='NodeSocketColor')
-        except Exception:
-            pass
+        tree.interface.new_socket('Image', in_out='OUTPUT', socket_type='NodeSocketColor')
+    except Exception:
+        pass
     output_node.location = (600, 0)
 
     tree.links.new(render_layers.outputs['Image'], glare.inputs['Image'])

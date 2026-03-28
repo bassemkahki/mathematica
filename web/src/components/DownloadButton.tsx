@@ -12,34 +12,43 @@ export function DownloadButton({ href, filename, label }: DownloadButtonProps) {
       href={href}
       download={filename}
       aria-label={label}
-      className="flex items-center gap-2 text-[#E8E8E8] text-sm"
+      className="flex items-center gap-2 text-xs"
       style={{
-        background: '#1E1E1E',
-        border: '1px solid #2A2A2A',
-        borderRadius: '4px',
-        padding: '8px 14px',
+        fontFamily: 'Inter, sans-serif',
+        fontWeight: 400,
+        color: '#888',
+        background: 'transparent',
+        border: '1px solid #1A1A1A',
+        borderRadius: '3px',
+        padding: '6px 12px',
         textDecoration: 'none',
-        transition: 'background 0.15s',
+        transition: 'color 0.2s, border-color 0.2s',
       }}
-      onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#2A2A2A' }}
-      onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#1E1E1E' }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLAnchorElement).style.color = '#C0C0C0';
+        (e.currentTarget as HTMLAnchorElement).style.borderColor = '#333';
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLAnchorElement).style.color = '#888';
+        (e.currentTarget as HTMLAnchorElement).style.borderColor = '#1A1A1A';
+      }}
     >
       <svg
-        width="14"
-        height="14"
-        viewBox="0 0 14 14"
+        width="12"
+        height="12"
+        viewBox="0 0 12 12"
         fill="none"
         aria-hidden="true"
       >
         <path
-          d="M7 1v8M4 6l3 3 3-3M2 11h10"
-          stroke="#E8E8E8"
-          strokeWidth="1.5"
+          d="M6 1v7M3.5 5.5L6 8l2.5-2.5M2 10h8"
+          stroke="currentColor"
+          strokeWidth="1.2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>
-      Download 4K
+      Download
     </a>
   )
 }

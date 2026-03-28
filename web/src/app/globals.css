@@ -1,14 +1,78 @@
 @import 'tailwindcss';
 
 :root {
-  --color-dominant: #0A0A0A;
-  --color-secondary: #141414;
-  --color-accent: #E8E8E8;
-  --color-prose: #C8C8C8;
+  --color-bg: #0A0A0A;
+  --color-surface: #111111;
+  --color-border: #1A1A1A;
+  --color-heading: #E0E0E0;
+  --color-body: #A0A0A0;
+  --color-muted: #555555;
+  --color-accent: #8A8AFF;
 }
 
 body {
-  background-color: var(--color-dominant);
-  color: var(--color-prose);
-  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-body);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'cv01', 'cv02', 'cv11';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scholarly heading typography */
+h1, h2, h3 {
+  font-family: 'EB Garamond', 'Georgia', 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--color-heading);
+}
+
+/* Paper column prose styles */
+[data-testid="paper-column"] {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-body);
+}
+
+[data-testid="paper-column"] h1,
+[data-testid="paper-column"] h2,
+[data-testid="paper-column"] h3 {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-weight: 400;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  color: var(--color-heading);
+}
+
+[data-testid="paper-column"] p {
+  margin-bottom: 1em;
+}
+
+[data-testid="paper-column"] code {
+  font-size: 0.9em;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+}
+
+/* MathJax overrides for dark theme */
+mjx-container {
+  color: var(--color-heading) !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
 }

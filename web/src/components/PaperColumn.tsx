@@ -21,13 +21,11 @@ export async function PaperColumn({ paperSlug }: PaperColumnProps) {
       <div
         data-testid="paper-column"
         style={{
-          background: '#141414',
-          color: '#888',
-          fontSize: '16px',
+          color: '#555',
+          fontSize: '14px',
           fontStyle: 'italic',
-          padding: '16px',
-          overflowY: 'auto',
-          maxHeight: '90vh',
+          fontFamily: 'Inter, sans-serif',
+          padding: '24px',
         }}
       >
         <p>Paper unavailable.</p>
@@ -40,13 +38,16 @@ export async function PaperColumn({ paperSlug }: PaperColumnProps) {
       data-testid="paper-column"
       className="overflow-y-auto"
       style={{
-        background: '#141414',
-        color: '#C8C8C8',
-        fontSize: '16px',
+        background: '#0E0E0E',
+        border: '1px solid #1A1A1A',
+        borderRadius: '3px',
+        color: '#A0A0A0',
+        fontSize: '15px',
         fontWeight: 400,
-        lineHeight: 1.6,
-        maxHeight: '90vh',
-        padding: '24px',
+        lineHeight: 1.75,
+        maxHeight: '85vh',
+        padding: '28px 24px',
+        fontFamily: 'Inter, sans-serif',
       }}
       dangerouslySetInnerHTML={{ __html: html }}
     />
